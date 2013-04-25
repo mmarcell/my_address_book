@@ -5,29 +5,41 @@ class address {
     var $dbname = "addressbook";
     var $user = "root";
     var $pass = "";
-    var $dbh;
+    public $dbh;
+    public $name = "Mylo";
     
     function __construct() {
         $this->Connect();
     }
     
     function Connect() {
-        $this->dbh = new PDO("mysql:host=$this->host;dbname=$this->dbname", $this->user, $this->pass);
-    }
-    function Test() {
-        if (isset($this->dbh)) {
-            echo "you've successfully connected to the database";
+        try {
+            $this->dbh = new PDO("mysql:host=$this->host;dbname=$this->dbname", $this->user, $this->pass);
+            $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $data = $this->dbh->prepare('SELECT * FROM info WHERE f_name = :name');
+            $data->execute(array('name'=>$this->name));
+            while($row = $data->fetch()) {
+                print_r($row);
+            }
+            echo "you've connected to the database!";
+            var_dump($this->dbh);
+        } catch(PDOException $e) {
+            echo 'ERROR: ' . $e->getMessage();
         }
     }
     
+    
     function addr_add_new($f_name, $l_name, $add) {
         try {
-            $this->dbh->prepare("INSERT INTO info(f_name, l_name, address) VALUES ($f_name, $l_name, $add)");   
+            $data = $this->dbh->prepare('INSERT INTO info (f_name, l_name, address) VALUES (:fname, :lname, :add)');
+            $data->execute(array('fname'=>$f_name,
+                                 'lname'=>$l_name,
+                                 'add'=>$add));
+        } catch(PDOException $e) {
+            echo 'ERROR: ' . $e->getMessage();
         }
-        catch(PDOException $e) {  
-            echo "I'm sorry, Mylo. I'm afraid I can't do that.";  
-            file_put_contents('PDOErrors.txt', $e->getMessage(), FILE_APPEND);  
-        } 
+      
     }
     
     function addr_get() {
@@ -40,7 +52,15 @@ class address {
 }
 
 $obj = new address();
-print $obj->Test();
-print $obj->addr_add_new('James', 'Bond', '100 Somewhere');
+$obj->addr_add_new('James', 'Bond', '100 Somewhere');
+
+//$insert = $dbh->prepare("INSERT INTO info(f_name, l_name, address) VALUES :fname, :lname, :add") or die(mysql_error());   
+            //$insert->bindParam(':fname', $f_name);
+            //$insert->bindParam(':lname', $l_name);
+            //$insert->bindParam(':add', $add);
+            
+            //$insert->execute(); 
+
+//print $obj->addr_add_new('James', 'Bond', '100 Somewhere');
 
 ?>
