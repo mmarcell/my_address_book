@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<form method="post">
+<form action="process.php" method="post">
     <table>
         <tr>
             <td>
