@@ -51,8 +51,8 @@ class address {
     }
 }
 
-$obj = new address();
-$obj->addr_add_new('James', 'Bond', '100 Somewhere');
+//$obj = new address();
+//$obj->addr_add_new('James', 'Bond', '100 Somewhere');
 
 //$insert = $dbh->prepare("INSERT INTO info(f_name, l_name, address) VALUES :fname, :lname, :add") or die(mysql_error());   
             //$insert->bindParam(':fname', $f_name);
