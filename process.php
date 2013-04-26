@@ -29,9 +29,12 @@ if (isset($_POST['submit'])) {
     }
 
 }
+if (isset($fname) && isset($lname) && isset($address) && isset($phone) && isset($email)) {
+$obj = new address();
+$obj->addr_add_new($fname, $lname, $address, $phone, $email);
+echo "Your new contact has been saved!";
+}
 
-$arr = array($fname, $lname, $address, $phone, $email);
-print_r($arr);
 
 
 ?>
