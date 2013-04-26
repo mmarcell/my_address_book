@@ -38,15 +38,28 @@ class address {
       
     }
     
-    function addr_get() {
-        
+    function addr_get($f_name, $l_name) {
+        $id = $this->dbh->prepare('SELECT id FROM info WHERE f_name = :fname AND l_name = :lname');
+        $id->execute(array( 'fname'=>$f_name,
+                            'lname'=>$l_name));
+        $result = $id->fetchAll();
+        if (count($result)) {
+            foreach($result as $row) {
+                $id = $row['id'];
+                $info=$this->dbh->prepare('SELECT * FROM info WHERE id = :id');
+                $info->execute(array('id'=>$id));
+                $count = $info->fetchAll();
+                    foreach ($count as $row) {
+                        echo $row['id'] . " " . $row['f_name'] . "<br>";
+                    }
+            }
+        } else {
+            echo "No rows returned.";
+        }    
     }
     
     function addr_edit() {
         
     }
 }
-
-
-
 ?>
