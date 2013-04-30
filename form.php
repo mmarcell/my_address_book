@@ -1,4 +1,3 @@
-<?php require_once("class.php"); ?>
 <!DOCTYPE html>
 
 <html>

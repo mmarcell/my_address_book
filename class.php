@@ -44,15 +44,30 @@ class address {
                             'lname'=>$l_name));
         $result = $id->fetchAll();
         if (count($result)) {
+            echo "<table class='t_result'>";
+            echo "<tr><td><h3>ID</h3></td>
+                      <td><h3>FIRST NAME</h3></td>
+                      <td><h3>LAST NAME</h3></td>
+                      <td><h3>ADDRESS</h3></td>
+                      <td><h3>PHONE #</h3></td>
+                      <td><h3>EMAIL</h3></td>";
             foreach($result as $row) {
                 $id = $row['id'];
                 $info=$this->dbh->prepare('SELECT * FROM info WHERE id = :id');
                 $info->execute(array('id'=>$id));
                 $count = $info->fetchAll();
                     foreach ($count as $row) {
-                        echo $row['id'] . " " . $row['f_name'] . "<br>";
+                        echo "<tr>";
+                        echo "<td>" . $row['id'] . "</td>" . 
+                             "<td>" . $row['f_name'] . "</td>" .
+                             "<td>" . $row['l_name'] . "</td>" .
+                             "<td>" . $row['address'] . "</td>" .
+                             "<td>" . $row['phone_num'] . "</td>" .
+                             "<td>" . $row['email'] . "</td>";
+                        echo "</tr>";
                     }
             }
+            echo "</table>";
         } else {
             echo "No rows returned.";
         }    
