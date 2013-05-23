@@ -142,11 +142,11 @@ class address {
                                                        email = :email
                                                        WHERE id = :id');
         if ($record->execute(array( 'id'=>$id,
-                                'fname'=>$fname,
-                                'lname'=>$lname,
-                                'add'=>$address,
-                                'phone'=>$phone,
-                                'email'=>$email))) {
+                                    'fname'=>$fname,
+                                    'lname'=>$lname,
+                                    'add'=>$address,
+                                    'phone'=>$phone,
+                                    'email'=>$email))) {
             echo "Update was successful!";
         } else {
             echo "An error occured and the record could not be updated.";

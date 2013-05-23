@@ -1,5 +1,6 @@
 <?php
 require_once("class.php");
+require_once("header.php");
 
 if (isset($_POST['submit'])) {
     

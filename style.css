@@ -1,0 +1,5 @@
+.t_result table, th, td {
+    border: 3px ridge #dddddd;
+    text-align:center;
+    border-collapse:collapse;
+}
